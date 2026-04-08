@@ -1,0 +1,259 @@
+/* ============================================================
+   FYP Journey — Navbar Component
+   components/navbar.css
+   ============================================================ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav);
+    padding-block: 1.1rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: all var(--duration-base) var(--ease-out);
+}
+
+.navbar--scrolled {
+    padding-block: 0.75rem;
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom-color: var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+}
+
+/* ── Logo ── */
+.navbar__logo {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: var(--font-black);
+    color: var(--color-primary);
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.navbar__logo span {
+    color: var(--color-accent);
+}
+
+.navbar__logo:hover {
+    color: var(--color-primary-light);
+}
+
+/* ── Nav links ── */
+.navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.navbar__link {
+    position: relative;
+    padding: 0.45rem 0.875rem;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: color var(--duration-fast) var(--ease-out),
+        background var(--duration-fast) var(--ease-out);
+}
+
+.navbar__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: calc(100% - 1.75rem);
+    height: 2px;
+    background: var(--color-secondary);
+    border-radius: var(--radius-full);
+    transition: transform var(--duration-base) var(--ease-out);
+    transform-origin: center;
+}
+
+.navbar__link:hover {
+    color: var(--color-primary);
+    background: var(--color-bg-section);
+}
+
+.navbar__link:hover::after,
+.navbar__link.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.navbar__link.active {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+}
+
+/* ── CTA button ── */
+.navbar__cta {
+    flex-shrink: 0;
+}
+
+/* ── Mobile hamburger ── */
+.navbar__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background var(--duration-fast) var(--ease-out);
+    z-index: calc(var(--z-nav) + 1);
+}
+
+.navbar__hamburger:hover {
+    background: var(--color-bg-section);
+}
+
+.navbar__hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: transform var(--duration-base) var(--ease-out),
+        opacity var(--duration-base) var(--ease-out),
+        background var(--duration-base) var(--ease-out);
+    transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.navbar__hamburger.open span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.navbar__hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.navbar__hamburger.open span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ── Mobile menu overlay ── */
+.navbar__mobile {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 30, 69, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: calc(var(--z-nav) - 1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.navbar__mobile.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.navbar__mobile-link {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-white);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    transition: color var(--duration-fast) var(--ease-out),
+        background var(--duration-fast) var(--ease-out);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform var(--duration-slow) var(--ease-out),
+        opacity var(--duration-slow) var(--ease-out),
+        color var(--duration-fast) var(--ease-out),
+        background var(--duration-fast) var(--ease-out);
+}
+
+.navbar__mobile.open .navbar__mobile-link {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Stagger mobile menu items */
+.navbar__mobile.open .navbar__mobile-link:nth-child(1) {
+    transition-delay: 50ms;
+}
+
+.navbar__mobile.open .navbar__mobile-link:nth-child(2) {
+    transition-delay: 100ms;
+}
+
+.navbar__mobile.open .navbar__mobile-link:nth-child(3) {
+    transition-delay: 150ms;
+}
+
+.navbar__mobile.open .navbar__mobile-link:nth-child(4) {
+    transition-delay: 200ms;
+}
+
+.navbar__mobile.open .navbar__mobile-link:nth-child(5) {
+    transition-delay: 250ms;
+}
+
+.navbar__mobile.open .navbar__mobile-link:nth-child(6) {
+    transition-delay: 300ms;
+}
+
+.navbar__mobile-link:hover {
+    color: var(--color-accent);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.navbar__mobile-cta {
+    margin-top: var(--space-4);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform var(--duration-slow) var(--ease-out),
+        opacity var(--duration-slow) var(--ease-out);
+}
+
+.navbar__mobile.open .navbar__mobile-cta {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 350ms;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+
+    .navbar__nav,
+    .navbar__cta {
+        display: none;
+    }
+
+    .navbar__hamburger {
+        display: flex;
+    }
+
+    .navbar__mobile {
+        display: flex;
+    }
+}

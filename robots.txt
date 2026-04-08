@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /partials/
+Disallow: /assets/js/
+Disallow: /.htaccess
+
+Sitemap: https://www.fypjourney.com/sitemap.xml

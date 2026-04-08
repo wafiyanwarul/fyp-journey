@@ -1,0 +1,308 @@
+/* ============================================================
+   FYP Journey — Animations & Keyframes
+   animations.css
+   ============================================================ */
+
+/* ── Fade ── */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── Scale ── */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.90);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ── Slide (hero images) ── */
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ── Float (decorative elements) ── */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes floatSlow {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(3deg);
+    }
+}
+
+/* ── Pulse ring (CTA highlight) ── */
+@keyframes pulseRing {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.55);
+        opacity: 0;
+    }
+}
+
+/* ── Blob morphing (background decoration) ── */
+@keyframes blobMorph {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+}
+
+/* ── Scroll indicator ── */
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(8px);
+        opacity: 0.5;
+    }
+}
+
+/* ── Shimmer (skeleton loading) ── */
+@keyframes shimmer {
+    0% {
+        background-position: -600px 0;
+    }
+
+    100% {
+        background-position: 600px 0;
+    }
+}
+
+/* ── Ticker / marquee ── */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ── Spin (loader) ── */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Underline draw ── */
+@keyframes underlineDraw {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ── Number count-up (triggered by JS adding .counting) ── */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Cursor parallax floating images ── */
+@keyframes photoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(var(--rot, 0deg));
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(var(--rot, 0deg));
+    }
+}
+
+/* ── Navbar scroll shrink (applied via JS class) ── */
+.navbar--scrolled {
+    box-shadow: var(--shadow-md) !important;
+    backdrop-filter: blur(16px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* ── Utility animation classes ── */
+.animate-fadeInUp {
+    animation: fadeInUp var(--duration-slower) var(--ease-out) both;
+}
+
+.animate-fadeInDown {
+    animation: fadeInDown var(--duration-slower) var(--ease-out) both;
+}
+
+.animate-fadeIn {
+    animation: fadeIn var(--duration-slow) var(--ease-out) both;
+}
+
+.animate-scaleIn {
+    animation: scaleIn var(--duration-slow) var(--ease-out) both;
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+.animate-floatSlow {
+    animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Stagger delays for utility classes */
+.anim-delay-1 {
+    animation-delay: 100ms;
+}
+
+.anim-delay-2 {
+    animation-delay: 200ms;
+}
+
+.anim-delay-3 {
+    animation-delay: 300ms;
+}
+
+.anim-delay-4 {
+    animation-delay: 400ms;
+}
+
+.anim-delay-5 {
+    animation-delay: 500ms;
+}
+
+.anim-delay-6 {
+    animation-delay: 600ms;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}

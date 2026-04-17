@@ -9,6 +9,39 @@
 
 'use strict'
 
+function isReloadNavigation () {
+  const navigationEntry = performance.getEntriesByType?.('navigation')?.[0]
+
+  if (navigationEntry) {
+    return navigationEntry.type === 'reload'
+  }
+
+  return performance.navigation?.type === performance.navigation.TYPE_RELOAD
+}
+
+function forceReloadToStartAtTop () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual'
+  }
+
+  if (!isReloadNavigation()) return
+
+  const cleanUrl = `${window.location.pathname}${window.location.search}`
+
+  if (window.location.hash) {
+    history.replaceState(null, document.title, cleanUrl)
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }
+
+  scrollToTop()
+  requestAnimationFrame(scrollToTop)
+  window.addEventListener('load', scrollToTop, { once: true })
+  window.addEventListener('pageshow', scrollToTop, { once: true })
+}
+
 // ── Page Loader ──────────────────────────────────────────────
 function hidePageLoader () {
   const loader = document.getElementById('page-loader')
@@ -29,22 +62,65 @@ function initScrollReveal () {
   const elements = document.querySelectorAll('.reveal')
   if (!elements.length) return
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-          observer.unobserve(entry.target)
-        }
-      })
-    },
-    {
-      threshold: 0.12,
-      rootMargin: '0px 0px -48px 0px'
-    }
-  )
+  let observer = null
 
-  elements.forEach(el => observer.observe(el))
+  const revealInViewport = element => {
+    if (element.classList.contains('visible')) return true
+
+    const rect = element.getBoundingClientRect()
+    const viewportHeight =
+      window.innerHeight || document.documentElement.clientHeight
+    const revealOffset = Math.min(96, viewportHeight * 0.12)
+    const isVisible =
+      rect.top <= viewportHeight - revealOffset && rect.bottom >= revealOffset
+
+    if (isVisible) {
+      element.classList.add('visible')
+      observer?.unobserve(element)
+    }
+
+    return isVisible
+  }
+
+  const revealVisibleElements = () => {
+    elements.forEach(revealInViewport)
+  }
+
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -48px 0px'
+      }
+    )
+
+    elements.forEach(el => {
+      if (!revealInViewport(el)) {
+        observer.observe(el)
+      }
+    })
+  } else {
+    revealVisibleElements()
+  }
+
+  const scheduleRevealCheck = () => {
+    requestAnimationFrame(revealVisibleElements)
+  }
+
+  scheduleRevealCheck()
+  window.addEventListener('load', scheduleRevealCheck, { once: true })
+  window.addEventListener('pageshow', scheduleRevealCheck)
+  window.addEventListener('resize', scheduleRevealCheck, { passive: true })
+  setTimeout(scheduleRevealCheck, 150)
+  setTimeout(scheduleRevealCheck, 500)
 }
 
 // ── Smooth scroll for anchor links ───────────────────────────
@@ -73,8 +149,11 @@ function initSmoothScroll () {
 
 // ── Phase 2+: Module Imports ──────────────────────────────────
 import { initHeroSlider } from './components/hero-slider.js'
+import { initContactParallax } from './components/contact-parallax.js'
 
 // ── Boot: wait for components to be ready ───────────────────
+forceReloadToStartAtTop()
+
 document.addEventListener('components:ready', () => {
   initScrollReveal()
   initSmoothScroll()
@@ -82,7 +161,7 @@ document.addEventListener('components:ready', () => {
   // Phase 2+ modules will be imported and called here
   // Phase 2
   initHeroSlider()
-  // Example: initHeroSlider(), initFAQ(), initContactParallax()
+  initContactParallax()
 })
 
 // Hide loader on window load (all assets ready)

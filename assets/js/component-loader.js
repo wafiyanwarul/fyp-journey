@@ -160,38 +160,49 @@ function initMobileMenu () {
 
   if (!hamburger || !mobileMenu) return
 
+  const closeMenu = () => {
+    hamburger.classList.remove('open')
+    mobileMenu.classList.remove('open')
+    hamburger.setAttribute('aria-expanded', 'false')
+    hamburger.setAttribute('aria-label', 'Buka menu')
+  }
+
+  const openMenu = () => {
+    hamburger.classList.add('open')
+    mobileMenu.classList.add('open')
+    hamburger.setAttribute('aria-expanded', 'true')
+    hamburger.setAttribute('aria-label', 'Tutup menu')
+  }
+
   hamburger.addEventListener('click', () => {
-    const isOpen = hamburger.classList.toggle('open')
-    mobileMenu.classList.toggle('open', isOpen)
-    document.body.style.overflow = isOpen ? 'hidden' : ''
-    hamburger.setAttribute('aria-expanded', String(isOpen))
-    hamburger.setAttribute('aria-label', isOpen ? 'Tutup menu' : 'Buka menu')
+    const isOpen = hamburger.classList.contains('open')
+    if (isOpen) {
+      closeMenu()
+    } else {
+      openMenu()
+    }
   })
 
   // Close on mobile link click
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('open')
-      mobileMenu.classList.remove('open')
-      document.body.style.overflow = ''
+      closeMenu()
     })
   })
 
-  // Close on overlay backdrop click (clicking outside nav items)
-  mobileMenu.addEventListener('click', e => {
-    if (e.target === mobileMenu) {
-      hamburger.classList.remove('open')
-      mobileMenu.classList.remove('open')
-      document.body.style.overflow = ''
+  document.addEventListener('click', e => {
+    const clickedInsideMenu = mobileMenu.contains(e.target)
+    const clickedHamburger = hamburger.contains(e.target)
+
+    if (!clickedInsideMenu && !clickedHamburger) {
+      closeMenu()
     }
   })
 
   // Close on Escape key
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-      hamburger.classList.remove('open')
-      mobileMenu.classList.remove('open')
-      document.body.style.overflow = ''
+      closeMenu()
     }
   })
 }

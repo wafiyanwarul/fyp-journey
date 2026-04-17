@@ -1,0 +1,105 @@
+/* contact.css */
+.contact__container {
+    position: relative;
+    padding: var(--space-16) var(--space-4);
+    background: var(--color-bg-dark);
+    border-radius: var(--radius-2xl);
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 480px;
+}
+
+.contact__content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact__container .section-label {
+    color: var(--color-secondary-light);
+}
+
+.contact__title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-black);
+    color: var(--color-text-white);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-tight);
+}
+
+.contact__desc {
+    color: var(--color-text-on-dark);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-8);
+}
+
+/* Parallax Floating Images */
+.contact__img {
+    position: absolute;
+    border-radius: var(--radius-2xl);
+    object-fit: cover;
+    opacity: 0.72;
+    filter: grayscale(15%);
+    transition: transform 180ms ease-out, opacity var(--duration-base) var(--ease-out);
+    will-change: transform;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.contact__img--1 {
+    --rot: -10deg;
+    width: 120px;
+    height: 160px;
+    top: 10%;
+    left: 5%;
+    transform: rotate(var(--rot));
+}
+
+.contact__img--2 {
+    --rot: 5deg;
+    width: 140px;
+    height: 140px;
+    bottom: 15%;
+    left: 15%;
+    transform: rotate(var(--rot));
+    border-radius: var(--radius-full);
+}
+
+.contact__img--3 {
+    --rot: 8deg;
+    width: 160px;
+    height: 120px;
+    top: 15%;
+    right: 10%;
+    transform: rotate(var(--rot));
+}
+
+.contact__img--4 {
+    --rot: -6deg;
+    width: 130px;
+    height: 180px;
+    bottom: 10%;
+    right: 5%;
+    transform: rotate(var(--rot));
+}
+
+@media (max-width: 768px) {
+    .contact__img {
+        display: none;
+        /* Hide decorative images on small screens for clarity */
+    }
+
+    .contact__container {
+        min-height: auto;
+        padding: var(--space-10) var(--space-6);
+    }
+
+    .contact__title {
+        font-size: var(--text-3xl);
+    }
+}

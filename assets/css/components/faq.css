@@ -1,0 +1,107 @@
+/* faq.css */
+.faq__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.faq__item {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow var(--duration-fast);
+}
+
+.faq__item[open] {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-secondary-light);
+}
+
+.faq__question {
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-display);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq__question::-webkit-details-marker {
+    display: none;
+}
+
+.faq__question::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-secondary);
+    transition: transform var(--duration-fast);
+}
+
+.faq__item[open] .faq__question::after {
+    content: '−';
+    transform: rotate(180deg);
+}
+
+.faq__answer {
+    padding: 0 var(--space-5) var(--space-4);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+/* Form Styles */
+.faq__form-wrapper {
+    padding: var(--space-8);
+}
+
+.faq__form-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+}
+
+.faq__form-desc {
+    color: var(--color-text-secondary);
+}
+
+.form-group {
+    margin-bottom: var(--space-4);
+}
+
+.form-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.w-full {
+    width: 100%;
+}

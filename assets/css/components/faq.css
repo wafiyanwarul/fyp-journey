@@ -68,6 +68,15 @@
     color: var(--color-text-secondary);
 }
 
+.faq__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq__form .btn + .btn {
+    margin-top: var(--space-3);
+}
+
 .form-group {
     margin-bottom: var(--space-4);
 }
@@ -104,4 +113,19 @@
 
 .w-full {
     width: 100%;
+}
+
+.form-status {
+    min-height: 1.25rem;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.form-status[data-status="error"] {
+    color: #b91c1c;
+}
+
+.form-status[data-status="success"] {
+    color: #047857;
 }

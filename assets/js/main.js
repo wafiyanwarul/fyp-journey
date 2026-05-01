@@ -148,8 +148,10 @@ function initSmoothScroll () {
 }
 
 // ── Phase 2+: Module Imports ──────────────────────────────────
+import { initAboutSlider } from './components/about-slider.js'
 import { initHeroSlider } from './components/hero-slider.js'
 import { initContactParallax } from './components/contact-parallax.js'
+import { initContactForm } from './components/contact-form.js'
 
 // ── Boot: wait for components to be ready ───────────────────
 forceReloadToStartAtTop()
@@ -160,8 +162,10 @@ document.addEventListener('components:ready', () => {
 
   // Phase 2+ modules will be imported and called here
   // Phase 2
+  initAboutSlider()
   initHeroSlider()
   initContactParallax()
+  initContactForm()
 })
 
 // Hide loader on window load (all assets ready)

@@ -313,7 +313,7 @@
 .about__founder-showcase {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(320px, 0.88fr) minmax(0, 1.12fr);
+    grid-template-columns: minmax(auto, 430px) 1fr;
     gap: clamp(2rem, 4vw, 4rem);
     align-items: center;
     padding: clamp(1.5rem, 3vw, 2.25rem) 0;
@@ -330,7 +330,7 @@
     position: relative;
     max-width: 430px;
     aspect-ratio: 0.76;
-    margin-inline: auto 0;
+    margin-inline: 0 auto;
     padding: 1rem;
     border-radius: 32px;
     background: rgba(255, 255, 255, 0.82);

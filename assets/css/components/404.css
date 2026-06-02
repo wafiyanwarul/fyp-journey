@@ -18,7 +18,20 @@
     background-size: 50px 50px;
     background-position: center top;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
+    margin-bottom: -80px; /* Overlap with the footer wave */
+    z-index: 1;
+}
+
+/* Layer footer above the error page cards so they slide naturally behind the wave path */
+#site-footer {
+    position: relative;
+    z-index: 10;
+}
+
+#site-footer .footer__wave {
+    background: transparent !important;
 }
 
 .error-page__content {
@@ -296,7 +309,7 @@
 
 @media (max-width: 768px) {
     .error-page {
-        padding-top: var(--space-12);
+        padding-top: var(--space-20); /* Push text down */
         min-height: calc(100vh - 72px); /* Fallback clean screen fit */
     }
 
@@ -307,7 +320,7 @@
 
     .error-page__illustration {
         height: 360px;
-        margin-bottom: -150px; /* Pull pile into footer overlap */
+        margin-bottom: -70px; /* Pull pile into footer overlap slightly less so shapes are visible */
     }
 
     /* Stack cards at the bottom on mobile (5 cards stack style) */
@@ -321,7 +334,7 @@
         width: 115px;
         height: 180px;
         left: 5%;
-        bottom: 60px;
+        bottom: 100px; /* Raised to be visible */
         transform: rotate(-12deg);
         z-index: 10;
     }
@@ -330,7 +343,7 @@
         width: 140px;
         height: 180px;
         left: 50%;
-        bottom: 50px;
+        bottom: 90px; /* Raised to be visible */
         transform: translateX(-50%) rotate(4deg);
         z-index: 5;
     }
@@ -340,7 +353,7 @@
         height: 180px;
         left: auto;
         right: 5%;
-        bottom: 60px;
+        bottom: 100px; /* Raised to be visible */
         transform: rotate(12deg);
         z-index: 10;
     }
@@ -349,7 +362,7 @@
         width: 115px;
         height: 180px;
         left: 18%;
-        bottom: -50px;
+        bottom: -10px; /* Raised to be visible */
         transform: rotate(-6deg);
         z-index: 15;
     }
@@ -359,7 +372,7 @@
         height: 180px;
         left: auto;
         right: 18%;
-        bottom: -50px;
+        bottom: -10px; /* Raised to be visible */
         transform: rotate(6deg);
         z-index: 15;
     }
@@ -371,41 +384,43 @@
     }
     
     .error-page__illustration {
-        height: 320px;
-        margin-bottom: -130px;
+        height: 300px;
+        margin-bottom: -60px; /* Raised */
     }
     
     .error-card--purple {
         width: 100px;
         height: 155px;
         left: 2%;
-        bottom: 50px;
+        bottom: 90px; /* Raised */
     }
 
     .error-card--navy {
         width: 120px;
         height: 155px;
-        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%) rotate(4deg);
+        bottom: 80px; /* Raised */
     }
 
     .error-card--cyan {
         width: 100px;
         height: 155px;
         right: 2%;
-        bottom: 50px;
+        bottom: 90px; /* Raised */
     }
 
     .error-card--yellow {
         width: 100px;
         height: 155px;
         left: 15%;
-        bottom: -40px;
+        bottom: -10px; /* Raised */
     }
 
     .error-card--lavender {
         width: 100px;
         height: 155px;
         right: 15%;
-        bottom: -40px;
+        bottom: -10px; /* Raised */
     }
 }

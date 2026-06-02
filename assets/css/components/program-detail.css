@@ -13,7 +13,7 @@
 .pd-back {
     position: fixed;
     top: 96px;
-    left: 24px;
+    left: max(16px, calc((100vw - var(--container-max)) / 2 - 96px));
     z-index: calc(var(--z-nav) - 1);
     display: inline-flex;
     align-items: center;
@@ -48,16 +48,10 @@
     transform: translateX(-2px);
 }
 
-@media (min-width: 1400px) {
-    .pd-back {
-        left: calc((100vw - var(--container-max)) / 2 - 96px);
-    }
-}
-
 /* ── Hero ── */
 .pd-hero {
     position: relative;
-    padding-top: 120px;
+    padding-top: 144px;
     padding-bottom: 0;
     overflow: hidden;
     background: var(--color-bg-dark);
@@ -969,10 +963,6 @@
     .pd-hero__inner {
         grid-template-columns: 1fr;
         padding-top: 1rem;
-    }
-
-    .pd-hero__category {
-        align-self: flex-end; /* Align category badge to the right for mobile balancing */
     }
 
     .pd-hero__image-wrap {

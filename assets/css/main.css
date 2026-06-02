@@ -288,6 +288,10 @@
     justify-content: space-between;
 }
 
+.justify-center {
+    justify-content: center;
+}
+
 .gap-4 {
     gap: var(--space-4);
 }

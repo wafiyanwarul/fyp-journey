@@ -71,8 +71,9 @@ function initScrollReveal () {
     const viewportHeight =
       window.innerHeight || document.documentElement.clientHeight
     const revealOffset = Math.min(96, viewportHeight * 0.12)
-    const isVisible =
-      rect.top <= viewportHeight - revealOffset && rect.bottom >= revealOffset
+    // Elemen dianggap terlihat jika bagian atasnya sudah masuk viewport (melewati batas offset bawah)
+    // atau jika posisinya sudah berada di atas viewport (telah di-scroll oleh user)
+    const isVisible = rect.top <= viewportHeight - revealOffset
 
     if (isVisible) {
       element.classList.add('visible')
@@ -109,6 +110,7 @@ function initScrollReveal () {
     })
   } else {
     revealVisibleElements()
+    window.addEventListener('scroll', scheduleRevealCheck, { passive: true })
   }
 
   const scheduleRevealCheck = () => {
@@ -147,18 +149,53 @@ function initSmoothScroll () {
   })
 }
 
+// ── FAQ Accordion (exclusive — hanya 1 item terbuka) ──────────
+function initFaqAccordion () {
+  const accordion = document.querySelector('.faq__accordion')
+  if (!accordion) return
+
+  const items = accordion.querySelectorAll('.faq__item')
+  const buttons = accordion.querySelectorAll('.faq__question[aria-expanded]')
+
+  function openItem (item) {
+    item.classList.add('is-open')
+    const btn = item.querySelector('.faq__question')
+    if (btn) btn.setAttribute('aria-expanded', 'true')
+  }
+
+  function closeItem (item) {
+    item.classList.remove('is-open')
+    const btn = item.querySelector('.faq__question')
+    if (btn) btn.setAttribute('aria-expanded', 'false')
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parentItem = btn.closest('.faq__item')
+      const isOpen = parentItem.classList.contains('is-open')
+
+      // Tutup semua item terlebih dahulu
+      items.forEach(closeItem)
+
+      // Jika sebelumnya tertutup, buka item ini
+      if (!isOpen) openItem(parentItem)
+    })
+  })
+}
+
 // ── Phase 2+: Module Imports ──────────────────────────────────
 import { initAboutSlider } from './components/about-slider.js'
 import { initHeroSlider } from './components/hero-slider.js'
 import { initContactParallax } from './components/contact-parallax.js'
 import { initContactForm } from './components/contact-form.js'
 
-// ── Boot: wait for components to be ready ───────────────────
+// ── Boot ─────────────────────────────────────────────────────
 forceReloadToStartAtTop()
+initScrollReveal()
 
 document.addEventListener('components:ready', () => {
-  initScrollReveal()
   initSmoothScroll()
+  initFaqAccordion()
 
   // Phase 2+ modules will be imported and called here
   // Phase 2

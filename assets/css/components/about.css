@@ -29,14 +29,16 @@
 
 .about__header {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-    gap: var(--space-10);
-    align-items: end;
-    margin-bottom: var(--space-8);
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-12);
+    align-items: start;
+    margin-bottom: var(--space-10);
+    border-bottom: 1px solid rgba(30, 58, 138, 0.08);
+    padding-bottom: var(--space-8);
 }
 
 .about__headline {
-    max-width: 13ch;
+    max-width: 16ch;
 }
 
 .about__header-meta {
@@ -84,8 +86,10 @@
 
 .about__carousel {
     position: relative;
+    /* overflow: hidden KETAT — tanpa padding/margin trick agar slide tetangga tidak bocor */
     overflow: hidden;
-    padding: 0;
+    /* Clip memastikan tidak ada sisa slide yang terlihat di kiri/kanan */
+    clip-path: inset(0);
     background: transparent;
     border: none;
     box-shadow: none;
@@ -110,7 +114,7 @@
 .about__slide-inner {
     min-height: 620px;
     border-radius: 0;
-    padding: clamp(1.25rem, 2.6vw, 2.25rem) 0;
+    padding: clamp(1.25rem, 2.6vw, 2.25rem) clamp(1rem, 3.5vw, 2.5rem);
 }
 
 .about__slide-inner--overview {
@@ -309,16 +313,13 @@
 .about__founder-showcase {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(320px, 0.88fr) minmax(0, 1.12fr);
+    grid-template-columns: minmax(auto, 430px) 1fr;
     gap: clamp(2rem, 4vw, 4rem);
     align-items: center;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-    border-radius: 32px;
-    background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.08), transparent 34%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.95));
-    border: 1px solid rgba(219, 234, 254, 0.95);
-    box-shadow: 0 26px 60px rgba(30, 58, 138, 0.08);
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .about__founder-visual {
@@ -329,7 +330,7 @@
     position: relative;
     max-width: 430px;
     aspect-ratio: 0.76;
-    margin-inline: auto 0;
+    margin-inline: 0 auto;
     padding: 1rem;
     border-radius: 32px;
     background: rgba(255, 255, 255, 0.82);
@@ -432,81 +433,47 @@
     color: var(--color-primary-dark);
 }
 
+/* ── Filosofi Logo Slide — Layout Seimbang ── */
 .about__slide-inner--identity {
     display: grid;
-    grid-template-columns: minmax(300px, 0.92fr) minmax(0, 1.08fr);
-    gap: clamp(2rem, 4vw, 4rem);
+    /* Logo di kiri proporsional, copy di kanan sedikit lebih lebar */
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
     align-items: center;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
+    padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.about__identity-logo-wrap {
+    background: #ffffff;
+    border: 1px solid rgba(219, 234, 254, 0.9);
     border-radius: 32px;
-    background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 255, 0.94)),
-        linear-gradient(0deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94));
-    border: 1px solid rgba(219, 234, 254, 0.95);
-    box-shadow: 0 26px 60px rgba(30, 58, 138, 0.08);
-}
-
-.about__identity-stage {
-    display: grid;
-    gap: 1.25rem;
-    align-items: start;
-}
-
-.about__identity-gallery {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
-    align-items: end;
-    padding: clamp(1.15rem, 2.4vw, 1.5rem);
-    border-radius: 28px;
-    background:
-        radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 28%),
-        linear-gradient(180deg, #ffffff, #f7fbff);
-    border: 1px solid rgba(219, 234, 254, 0.95);
-    min-height: 360px;
-}
-
-.about__identity-logo-card {
-    position: relative;
-    display: grid;
-    place-items: center;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 20px 42px rgba(30, 58, 138, 0.08);
-    overflow: hidden;
-}
-
-.about__identity-logo-card img {
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    box-shadow: 0 24px 50px rgba(30, 58, 138, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    /* Tanpa max-width kaku — ikuti grid column */
     width: 100%;
-    height: 100%;
+}
+
+.about__identity-logo-img {
+    width: 100%;
+    aspect-ratio: 1;
     object-fit: contain;
-    display: block;
-}
-
-.about__identity-logo-card--main {
-    width: min(100%, 320px);
-    aspect-ratio: 1;
-    padding: 1.25rem;
-}
-
-.about__identity-logo-card--accent {
-    align-self: start;
-    width: min(148px, 28vw);
-    aspect-ratio: 1;
-    padding: 0.9rem;
-    border-radius: 24px;
-}
-
-.about__identity-summary {
-    display: grid;
-    gap: 0.5rem;
-    padding: 1rem 1.1rem;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(219, 234, 254, 0.92);
-    box-shadow: 0 14px 32px rgba(30, 58, 138, 0.05);
-    color: var(--color-text-secondary);
+}
+
+.about__identity-logo-caption {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: var(--font-semibold);
 }
 
 .about__identity-summary-label {
@@ -520,24 +487,25 @@
 .about__identity-copy {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-5);
 }
 
 .about__identity-title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3vw, 3rem);
-    line-height: 1.08;
+    font-size: clamp(1.65rem, 2.5vw, 2.5rem);
+    line-height: 1.1;
     color: var(--color-text-primary);
-    max-width: 12ch;
+    max-width: 16ch;
 }
 
 .about__identity-desc {
-    max-width: 58ch;
+    max-width: 52ch;
     color: var(--color-text-secondary);
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     line-height: var(--leading-relaxed);
 }
 
+/* Points: 2 kolom × 2 baris — seimbang dan tidak menumpuk */
 .about__identity-points {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -546,49 +514,48 @@
 
 .about__identity-point {
     display: flex;
-    align-items: flex-start;
-    gap: var(--space-4);
-    padding: 1rem 1.05rem;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(219, 234, 254, 0.95);
-    box-shadow: 0 14px 30px rgba(30, 58, 138, 0.05);
-    transition:
-        transform var(--duration-base) var(--ease-out),
-        border-color var(--duration-base) var(--ease-out),
-        box-shadow var(--duration-base) var(--ease-out);
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background: rgba(248, 250, 255, 0.9);
+    border: 1px solid rgba(219, 234, 254, 0.8);
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.04);
+    transition: transform var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out);
 }
 
 .about__identity-point:hover {
     transform: translateY(-2px);
-    border-color: rgba(59, 130, 246, 0.24);
-    box-shadow: 0 20px 38px rgba(30, 58, 138, 0.08);
+    box-shadow: 0 14px 28px rgba(30, 58, 138, 0.08);
 }
 
 .about__identity-point-icon {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    background: #dfeafe;
+    border-radius: 10px;
+    background: rgba(59, 130, 246, 0.1);
     color: var(--color-primary);
+    margin-bottom: var(--space-1);
 }
 
 .about__identity-point-title {
     font-family: var(--font-display);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: var(--font-bold);
     color: var(--color-text-primary);
+    line-height: 1.3;
 }
 
 .about__identity-point-text {
-    margin-top: 4px;
+    margin: 0;
     color: var(--color-text-secondary);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
+    font-size: 0.78rem;
+    line-height: var(--leading-relaxed);
 }
 
 .about__footer {
@@ -670,14 +637,6 @@
     .about__founder-photo-wrap {
         margin-inline: auto;
     }
-
-    .about__identity-stage {
-        min-height: auto;
-    }
-
-    .about__identity-gallery {
-        min-height: 320px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -690,31 +649,47 @@
         max-width: none;
     }
 
+    /* Carousel mobile: clip ketat, tanpa overflow */
     .about__carousel {
+        /* Sudah overflow:hidden + clip-path dari base — tidak perlu override */
         padding: 0;
+        margin: 0;
     }
 
     .about__slide-inner {
-        padding: 1.25rem 0;
+        padding: 1.25rem var(--space-4);
     }
 
     .about__story-title,
     .about__founder-title,
     .about__identity-title {
-        font-size: clamp(1.75rem, 6vw, 2.35rem);
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem);
     }
 
     .about__pillar,
-    .about__meta-card,
-    .about__identity-point {
+    .about__meta-card {
         padding: 0.9rem 1rem;
     }
 
     .about__overview-top,
     .about__vision-mission,
-    .about__founder-meta,
-    .about__identity-points {
+    .about__founder-meta {
         grid-template-columns: 1fr;
+    }
+
+    /* Filosofi logo: stack vertikal di mobile */
+    .about__slide-inner--identity {
+        grid-template-columns: 1fr;
+    }
+
+    .about__identity-logo-wrap {
+        max-width: 260px;
+        margin-inline: auto;
+    }
+
+    /* Points tetap 2 kolom di mobile jika cukup lebar, fallback 1 kolom di xs */
+    .about__identity-points {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .about__identity-logo-card--accent {
@@ -722,8 +697,8 @@
     }
 
     .about__footer {
-        flex-direction: row;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -747,12 +722,8 @@
         font-size: 13px;
     }
 
-    .about__identity-gallery {
+    /* Points 1 kolom di layar sangat kecil */
+    .about__identity-points {
         grid-template-columns: 1fr;
-        min-height: auto;
-    }
-
-    .about__identity-logo-card--accent {
-        width: 96px;
     }
 }

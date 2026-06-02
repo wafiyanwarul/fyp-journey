@@ -909,7 +909,7 @@
 /* ── CTA Section ── */
 .pd-cta {
     padding: var(--space-20) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1a4dbf 50%, var(--color-primary-dark) 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0F3880 50%, var(--color-primary-dark) 100%);
     position: relative;
     overflow: hidden;
 }

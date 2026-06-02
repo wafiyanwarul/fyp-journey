@@ -71,8 +71,9 @@ function initScrollReveal () {
     const viewportHeight =
       window.innerHeight || document.documentElement.clientHeight
     const revealOffset = Math.min(96, viewportHeight * 0.12)
-    const isVisible =
-      rect.top <= viewportHeight - revealOffset && rect.bottom >= revealOffset
+    // Elemen dianggap terlihat jika bagian atasnya sudah masuk viewport (melewati batas offset bawah)
+    // atau jika posisinya sudah berada di atas viewport (telah di-scroll oleh user)
+    const isVisible = rect.top <= viewportHeight - revealOffset
 
     if (isVisible) {
       element.classList.add('visible')
@@ -109,6 +110,7 @@ function initScrollReveal () {
     })
   } else {
     revealVisibleElements()
+    window.addEventListener('scroll', scheduleRevealCheck, { passive: true })
   }
 
   const scheduleRevealCheck = () => {
@@ -153,11 +155,11 @@ import { initHeroSlider } from './components/hero-slider.js'
 import { initContactParallax } from './components/contact-parallax.js'
 import { initContactForm } from './components/contact-form.js'
 
-// ── Boot: wait for components to be ready ───────────────────
+// ── Boot ─────────────────────────────────────────────────────
 forceReloadToStartAtTop()
+initScrollReveal()
 
 document.addEventListener('components:ready', () => {
-  initScrollReveal()
   initSmoothScroll()
 
   // Phase 2+ modules will be imported and called here

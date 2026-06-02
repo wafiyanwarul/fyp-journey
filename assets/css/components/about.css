@@ -114,7 +114,7 @@
 .about__slide-inner {
     min-height: 620px;
     border-radius: 0;
-    padding: clamp(1.25rem, 2.6vw, 2.25rem) 0;
+    padding: clamp(1.25rem, 2.6vw, 2.25rem) clamp(1rem, 3.5vw, 2.5rem);
 }
 
 .about__slide-inner--overview {
@@ -657,7 +657,7 @@
     }
 
     .about__slide-inner {
-        padding: 1.25rem 0;
+        padding: 1.25rem var(--space-4);
     }
 
     .about__story-title,

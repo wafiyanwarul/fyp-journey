@@ -11,10 +11,10 @@
 
 /* ── Back Button (fixed top-left on scroll) ── */
 .pd-back {
-    position: fixed;
-    top: 92px;
-    left: 24px;
-    z-index: calc(var(--z-nav) - 1);
+    position: absolute;
+    top: 104px;
+    left: max(var(--container-px), calc((100vw - var(--container-max)) / 2 + var(--container-px)));
+    z-index: 10;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1001,8 +1001,9 @@
 
 @media (max-width: 768px) {
     .pd-back {
-        top: 76px;
-        left: 12px;
+        position: absolute;
+        top: 92px;
+        left: var(--container-px);
         padding: 0.4rem 0.75rem;
         font-size: var(--text-xs);
     }

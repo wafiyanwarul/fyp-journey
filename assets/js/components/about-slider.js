@@ -70,6 +70,7 @@ export function initAboutSlider () {
   let startX = 0
   let diffX = 0
   let isDragging = false
+  let isTouchDevice = false
 
   // Set cursor grab awal pada track
   track.style.cursor = 'grab'
@@ -81,8 +82,13 @@ export function initAboutSlider () {
   }
 
   const dragStart = event => {
-    // Hanya proses seret mouse jika klik kiri
+    if (event.type === 'touchstart') {
+      isTouchDevice = true
+    }
+
+    // Hanya proses seret mouse jika klik kiri dan BUKAN perangkat sentuh
     if (event.type === 'mousedown') {
+      if (isTouchDevice) return
       if (event.button !== 0) return
       event.preventDefault() // Mencegah highlight teks / drag gambar bawaan browser
     }

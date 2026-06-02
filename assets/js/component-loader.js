@@ -259,6 +259,9 @@ async function initComponents () {
     if (yearEl) yearEl.textContent = new Date().getFullYear()
   }
 
+  // Set global flag to avoid race conditions
+  window.componentsReady = true
+
   // Signal all components are ready
   document.dispatchEvent(new CustomEvent('components:ready'))
 }

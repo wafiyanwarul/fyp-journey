@@ -95,6 +95,7 @@
     }
 
     .contact__container {
+        width: auto; /* Override width: 100% of .container to prevent overflow */
         min-height: auto;
         padding: var(--space-10) var(--space-6);
         /* Outer margin agar card tidak langsung menempel ke tepi layar */
@@ -109,6 +110,7 @@
 
 @media (max-width: 480px) {
     .contact__container {
+        width: auto; /* Override width: 100% of .container */
         padding: var(--space-8) var(--space-5);
         margin-inline: var(--space-2);
     }

@@ -123,6 +123,15 @@ function initScrollReveal () {
   window.addEventListener('resize', scheduleRevealCheck, { passive: true })
   setTimeout(scheduleRevealCheck, 150)
   setTimeout(scheduleRevealCheck, 500)
+
+  // Jaring pengaman (fallback): tampilkan semua konten setelah 1.5s jika scroll/observer gagal
+  setTimeout(() => {
+    elements.forEach(el => {
+      if (!el.classList.contains('visible')) {
+        el.classList.add('visible')
+      }
+    })
+  }, 1500)
 }
 
 // ── Smooth scroll for anchor links ───────────────────────────
@@ -193,7 +202,7 @@ import { initContactForm } from './components/contact-form.js'
 forceReloadToStartAtTop()
 initScrollReveal()
 
-document.addEventListener('components:ready', () => {
+const startApp = () => {
   initSmoothScroll()
   initFaqAccordion()
 
@@ -203,10 +212,22 @@ document.addEventListener('components:ready', () => {
   initHeroSlider()
   initContactParallax()
   initContactForm()
-})
+}
 
-// Hide loader on window load (all assets ready)
+// Atasi race condition components:ready
+if (window.componentsReady) {
+  startApp()
+} else {
+  document.addEventListener('components:ready', startApp)
+}
+
+// Sembunyikan loader lebih cepat demi UX yang instant
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', hidePageLoader)
+} else {
+  hidePageLoader()
+}
+
+// Backup event load & fallback pengaman 1.5 detik
 window.addEventListener('load', hidePageLoader)
-
-// Fallback: hide loader after 3s regardless
-setTimeout(hidePageLoader, 3000)
+setTimeout(hidePageLoader, 1500)

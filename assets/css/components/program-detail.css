@@ -9,18 +9,19 @@
     min-height: 100vh;
 }
 
-/* ── Back Button (fixed top-left on scroll) ── */
+/* ── Back Button (Responsive Fixed/Absolute) ── */
 .pd-back {
-    position: fixed;
-    top: 92px;
-    left: 24px;
-    z-index: calc(var(--z-nav) - 1);
+    position: absolute;
+    top: 104px;
+    left: max(var(--container-px), calc((100vw - var(--container-max)) / 2 + var(--container-px)));
+    z-index: 10;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 0.5rem 1rem 0.5rem 0.75rem;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     font-family: var(--font-display);
@@ -48,10 +49,19 @@
     transform: translateX(-2px);
 }
 
+@media (min-width: 1480px) {
+    .pd-back {
+        position: fixed;
+        top: 96px;
+        left: calc((100vw - var(--container-max)) / 2 - 120px);
+        z-index: calc(var(--z-nav) - 1);
+    }
+}
+
 /* ── Hero ── */
 .pd-hero {
     position: relative;
-    padding-top: 120px;
+    padding-top: 160px;
     padding-bottom: 0;
     overflow: hidden;
     background: var(--color-bg-dark);
@@ -122,6 +132,7 @@
     text-transform: uppercase;
     color: var(--color-secondary-light);
     width: fit-content;
+    align-self: flex-start;
     animation: fadeInDown 0.6s var(--ease-out) both;
 }
 
@@ -177,8 +188,7 @@
 .pd-hero__image-wrap {
     position: relative;
     height: 420px;
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
+    /* remove overflow: hidden to prevent cropping of absolutely positioned child pills */
     box-shadow: var(--shadow-xl);
     animation: fadeInRight 0.8s var(--ease-out) 0.15s both;
 }
@@ -188,6 +198,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: var(--radius-2xl);
 }
 
 .pd-hero__image-wrap::after {
@@ -195,6 +206,8 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, transparent 60%);
+    border-radius: var(--radius-2xl);
+    pointer-events: none;
 }
 
 /* Stat pills on hero image */
@@ -896,7 +909,7 @@
 /* ── CTA Section ── */
 .pd-cta {
     padding: var(--space-20) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1a4dbf 50%, var(--color-primary-dark) 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0F3880 50%, var(--color-primary-dark) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -963,6 +976,37 @@
         padding-top: 1rem;
     }
 
+    .pd-back {
+        position: fixed;
+        top: 84px;
+        left: var(--container-px);
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        gap: 0;
+        font-size: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        z-index: calc(var(--z-nav) - 1);
+        box-shadow: var(--shadow-md);
+    }
+
+    .pd-back svg {
+        margin: 0;
+        width: 18px;
+        height: 18px;
+    }
+
+    .pd-back:hover {
+        transform: scale(1.05);
+    }
+
+    .pd-back:hover svg {
+        transform: none;
+    }
+
     .pd-hero__image-wrap {
         height: 320px;
         max-width: 560px;
@@ -971,11 +1015,13 @@
     }
 
     .pd-hero__stat-pill--1 {
-        left: 0;
+        left: -12px;
+        bottom: 16px;
     }
 
     .pd-hero__stat-pill--2 {
-        right: 0;
+        right: -12px;
+        top: 16px;
     }
 
     .pd-overview__inner {
@@ -1000,15 +1046,19 @@
 }
 
 @media (max-width: 768px) {
-    .pd-back {
-        top: 76px;
-        left: 12px;
-        padding: 0.4rem 0.75rem;
-        font-size: var(--text-xs);
+    .pd-hero {
+        padding-top: 136px;
     }
 
-    .pd-hero {
-        padding-top: 100px;
+    /* Reposition stat pills inside the image on small screens to prevent crop and overflow-x */
+    .pd-hero__stat-pill--1 {
+        left: 12px;
+        bottom: 12px;
+    }
+
+    .pd-hero__stat-pill--2 {
+        right: 12px;
+        top: 12px;
     }
 
     .pd-hero__desc {

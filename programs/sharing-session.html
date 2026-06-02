@@ -492,10 +492,15 @@
     <script type="module" src="/assets/js/component-loader.js"></script>
     <script type="module" defer>
         import { initProgramGallery, initBackButton } from '/assets/js/components/program-detail.js';
-        document.addEventListener('components:ready', () => {
+        const startProgramDetail = () => {
             initProgramGallery();
             initBackButton();
-        });
+        };
+        if (window.componentsReady) {
+            startProgramDetail();
+        } else {
+            document.addEventListener('components:ready', startProgramDetail);
+        }
     </script>
     <script type="module" src="/assets/js/main.js" defer></script>
 

@@ -9,18 +9,19 @@
     min-height: 100vh;
 }
 
-/* ── Back Button (fixed top-left on scroll) ── */
+/* ── Back Button (Responsive Fixed/Absolute) ── */
 .pd-back {
-    position: fixed;
-    top: 96px;
-    left: max(16px, calc((100vw - var(--container-max)) / 2 - 96px));
-    z-index: calc(var(--z-nav) - 1);
+    position: absolute;
+    top: 104px;
+    left: max(var(--container-px), calc((100vw - var(--container-max)) / 2 + var(--container-px)));
+    z-index: 10;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 0.5rem 1rem 0.5rem 0.75rem;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     font-family: var(--font-display);
@@ -48,10 +49,19 @@
     transform: translateX(-2px);
 }
 
+@media (min-width: 1480px) {
+    .pd-back {
+        position: fixed;
+        top: 96px;
+        left: calc((100vw - var(--container-max)) / 2 - 120px);
+        z-index: calc(var(--z-nav) - 1);
+    }
+}
+
 /* ── Hero ── */
 .pd-hero {
     position: relative;
-    padding-top: 144px;
+    padding-top: 160px;
     padding-bottom: 0;
     overflow: hidden;
     background: var(--color-bg-dark);
@@ -122,6 +132,7 @@
     text-transform: uppercase;
     color: var(--color-secondary-light);
     width: fit-content;
+    align-self: flex-start;
     animation: fadeInDown 0.6s var(--ease-out) both;
 }
 
@@ -965,6 +976,37 @@
         padding-top: 1rem;
     }
 
+    .pd-back {
+        position: fixed;
+        top: 84px;
+        left: var(--container-px);
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        gap: 0;
+        font-size: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        z-index: calc(var(--z-nav) - 1);
+        box-shadow: var(--shadow-md);
+    }
+
+    .pd-back svg {
+        margin: 0;
+        width: 18px;
+        height: 18px;
+    }
+
+    .pd-back:hover {
+        transform: scale(1.05);
+    }
+
+    .pd-back:hover svg {
+        transform: none;
+    }
+
     .pd-hero__image-wrap {
         height: 320px;
         max-width: 560px;
@@ -1004,17 +1046,19 @@
 }
 
 @media (max-width: 768px) {
-    .pd-back {
-        position: fixed;
-        top: 84px;
-        left: var(--container-px);
-        padding: 0.4rem 0.75rem;
-        font-size: var(--text-xs);
-        z-index: calc(var(--z-nav) - 1);
-    }
-
     .pd-hero {
         padding-top: 136px;
+    }
+
+    /* Reposition stat pills inside the image on small screens to prevent crop and overflow-x */
+    .pd-hero__stat-pill--1 {
+        left: 12px;
+        bottom: 12px;
+    }
+
+    .pd-hero__stat-pill--2 {
+        right: 12px;
+        top: 12px;
     }
 
     .pd-hero__desc {

@@ -149,6 +149,40 @@ function initSmoothScroll () {
   })
 }
 
+// ── FAQ Accordion (exclusive — hanya 1 item terbuka) ──────────
+function initFaqAccordion () {
+  const accordion = document.querySelector('.faq__accordion')
+  if (!accordion) return
+
+  const items = accordion.querySelectorAll('.faq__item')
+  const buttons = accordion.querySelectorAll('.faq__question[aria-expanded]')
+
+  function openItem (item) {
+    item.classList.add('is-open')
+    const btn = item.querySelector('.faq__question')
+    if (btn) btn.setAttribute('aria-expanded', 'true')
+  }
+
+  function closeItem (item) {
+    item.classList.remove('is-open')
+    const btn = item.querySelector('.faq__question')
+    if (btn) btn.setAttribute('aria-expanded', 'false')
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parentItem = btn.closest('.faq__item')
+      const isOpen = parentItem.classList.contains('is-open')
+
+      // Tutup semua item terlebih dahulu
+      items.forEach(closeItem)
+
+      // Jika sebelumnya tertutup, buka item ini
+      if (!isOpen) openItem(parentItem)
+    })
+  })
+}
+
 // ── Phase 2+: Module Imports ──────────────────────────────────
 import { initAboutSlider } from './components/about-slider.js'
 import { initHeroSlider } from './components/hero-slider.js'
@@ -161,6 +195,7 @@ initScrollReveal()
 
 document.addEventListener('components:ready', () => {
   initSmoothScroll()
+  initFaqAccordion()
 
   // Phase 2+ modules will be imported and called here
   // Phase 2

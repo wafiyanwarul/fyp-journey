@@ -11,10 +11,10 @@
 
 /* ── Back Button (fixed top-left on scroll) ── */
 .pd-back {
-    position: absolute;
-    top: 104px;
-    left: max(var(--container-px), calc((100vw - var(--container-max)) / 2 + var(--container-px)));
-    z-index: 10;
+    position: fixed;
+    top: 96px;
+    left: 24px;
+    z-index: calc(var(--z-nav) - 1);
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -46,6 +46,12 @@
 
 .pd-back:hover svg {
     transform: translateX(-2px);
+}
+
+@media (min-width: 1400px) {
+    .pd-back {
+        left: calc((100vw - var(--container-max)) / 2 - 96px);
+    }
 }
 
 /* ── Hero ── */
@@ -177,8 +183,7 @@
 .pd-hero__image-wrap {
     position: relative;
     height: 420px;
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
+    /* remove overflow: hidden to prevent cropping of absolutely positioned child pills */
     box-shadow: var(--shadow-xl);
     animation: fadeInRight 0.8s var(--ease-out) 0.15s both;
 }
@@ -188,6 +193,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: var(--radius-2xl);
 }
 
 .pd-hero__image-wrap::after {
@@ -195,6 +201,8 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, transparent 60%);
+    border-radius: var(--radius-2xl);
+    pointer-events: none;
 }
 
 /* Stat pills on hero image */
@@ -963,6 +971,10 @@
         padding-top: 1rem;
     }
 
+    .pd-hero__category {
+        align-self: flex-end; /* Align category badge to the right for mobile balancing */
+    }
+
     .pd-hero__image-wrap {
         height: 320px;
         max-width: 560px;
@@ -971,11 +983,13 @@
     }
 
     .pd-hero__stat-pill--1 {
-        left: 0;
+        left: -12px;
+        bottom: 16px;
     }
 
     .pd-hero__stat-pill--2 {
-        right: 0;
+        right: -12px;
+        top: 16px;
     }
 
     .pd-overview__inner {
@@ -1001,15 +1015,16 @@
 
 @media (max-width: 768px) {
     .pd-back {
-        position: absolute;
-        top: 92px;
+        position: fixed;
+        top: 84px;
         left: var(--container-px);
         padding: 0.4rem 0.75rem;
         font-size: var(--text-xs);
+        z-index: calc(var(--z-nav) - 1);
     }
 
     .pd-hero {
-        padding-top: 100px;
+        padding-top: 136px;
     }
 
     .pd-hero__desc {

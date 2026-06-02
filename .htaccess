@@ -1,5 +1,8 @@
 # FYP Journey - Apache security baseline
 
+# Custom 404 Error Page
+ErrorDocument 404 /404.html
+
 Options -Indexes
 ServerSignature Off
 

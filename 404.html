@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+
+<head>
+    <!-- ── Meta Essentials ── -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- ── Primary SEO ── -->
+    <title>404 — Halaman Tidak Ditemukan | FYP Journey</title>
+    <meta name="description" content="Halaman yang Anda cari tidak dapat ditemukan. Kembali ke halaman utama FYP Journey." />
+    <meta name="robots" content="noindex, follow" />
+
+    <!-- ── Favicons / App Icons ── -->
+    <link rel="icon" href="/assets/favicons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/assets/favicons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/assets/favicons/site.webmanifest" />
+    <meta name="theme-color" content="#00296B" />
+
+    <!-- ── Google Fonts ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
+        rel="stylesheet" />
+
+    <!-- ── Stylesheets ── -->
+    <link rel="stylesheet" href="/assets/css/variables.css" />
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/animations.css" />
+    <!-- Component CSS -->
+    <link rel="stylesheet" href="/assets/css/components/navbar.css" />
+    <link rel="stylesheet" href="/assets/css/components/footer.css" />
+    <link rel="stylesheet" href="/assets/css/components/404.css" />
+
+    <!-- Flag 404 for component-loader -->
+    <script>
+        window.is404Page = true;
+    </script>
+</head>
+
+<body>
+
+    <div id="page-loader" role="status" aria-live="polite" aria-label="Memuat halaman">
+        <div class="loader-logo">FYP <span>Journey</span></div>
+    </div>
+
+    <!-- Header (injected by component-loader.js) -->
+    <header id="site-header" role="banner"></header>
+
+    <main class="error-page">
+        <!-- Blobs -->
+        <div class="error-page__blob error-page__blob--a" aria-hidden="true"></div>
+        <div class="error-page__blob error-page__blob--b" aria-hidden="true"></div>
+
+        <div class="container d-flex justify-content-center">
+            <div class="error-page__container">
+                <div class="error-page__badge">
+                    <span class="error-page__badge-dot"></span>
+                    Error Code: 404
+                </div>
+                <h1 class="error-page__title">404</h1>
+                <h2 class="error-page__subtitle">Halaman Tidak Ditemukan</h2>
+                <p class="error-page__desc">
+                    Ups! Halaman yang kamu cari tidak dapat ditemukan atau telah dipindahkan. Yuk, kembali ke jalan yang benar bersama FYP Journey.
+                </p>
+                <div class="error-page__actions">
+                    <a href="/" class="btn btn--primary btn--lg error-page__btn-home">
+                        Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (injected by component-loader.js) -->
+    <footer id="site-footer" role="contentinfo"></footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/assets/js/component-loader.js"></script>
+    <script type="module" src="/assets/js/main.js" defer></script>
+
+</body>
+
+</html>

@@ -15,6 +15,9 @@
  * Works for both root-level pages and pages inside subdirectories.
  */
 function getBasePath () {
+  if (window.is404Page) {
+    return '/';
+  }
   const path = window.location.pathname
 
   // Count how many directories deep we are from root
